@@ -62,3 +62,6 @@
 [submodule "apt"]
 	path = apt
 	url = https://github.com/chef-cookbooks/apt.git
+[submodule "ark"]
+	path = ark
+	url = https://github.com/burtlo/ark.git
