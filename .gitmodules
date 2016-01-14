@@ -59,3 +59,6 @@
 [submodule "opsworks-elasticsearch-cookbook"]
 	path = opsworks-elasticsearch-cookbook
 	url = https://github.com/awslabs/opsworks-elasticsearch-cookbook.git
+[submodule "apt"]
+	path = apt
+	url = https://github.com/chef-cookbooks/apt.git
