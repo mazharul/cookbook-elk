@@ -1,36 +1,36 @@
 [submodule "yum"]
 	path = yum
-	url = git@github.com:chef-cookbooks/yum.git
+	url = https://github.com/chef-cookbooks/yum.git
 [submodule "aws"]
 	path = aws
-	url = git@github.com:chef-cookbooks/aws.git
+	url = https://github.com/chef-cookbooks/aws.git
 [submodule "build-essential"]
 	path = build-essential
-	url = git@github.com:chef-cookbooks/build-essential.git
+	url = https://github.com/chef-cookbooks/build-essential.git
 [submodule "chef-sugar"]
 	path = chef-sugar
-	url = git@github.com:sethvargo/chef-sugar.git
+	url = https://github.com/sethvargo/chef-sugar.git
 [submodule "chef-handler"]
 	path = chef-handler
-	url = git@github.com:chef-cookbooks/chef_handler.git
+	url = https://github.com/chef-cookbooks/chef_handler.git
 [submodule "elasticsearch"]
 	path = elasticsearch
-	url = git@github.com:elastic/cookbook-elasticsearch.git
+	url = https://github.com/elastic/cookbook-elasticsearch.git
 [submodule "erlang"]
 	path = erlang
-	url = git@github.com:chef-cookbooks/erlang.git
+	url = https://github.com/chef-cookbooks/erlang.git
 [submodule "git"]
 	path = git
-	url = git@github.com:chef-cookbooks/git.git
+	url = https://github.com/chef-cookbooks/git.git
 [submodule "java"]
 	path = java
-	url = git@github.com:agileorbit-cookbooks/java.git
+	url = https://github.com/agileorbit-cookbooks/java.git
 [submodule "nginx"]
 	path = nginx
-	url = git@github.com:miketheman/nginx.git
+	url = https://github.com/miketheman/nginx.git
 [submodule "ohai"]
 	path = ohai
-	url = git@github.com:chef-cookbooks/ohai.git
+	url = https://github.com/chef-cookbooks/ohai.git
 
 [submodule "ntp"]
 	path = ntp
@@ -58,4 +58,4 @@
 	url = https://github.com/Youscribe/htpasswd-cookbook.git
 [submodule "opsworks-elasticsearch-cookbook"]
 	path = opsworks-elasticsearch-cookbook
-	url = git@github.com:awslabs/opsworks-elasticsearch-cookbook.git
+	url = https://github.com/awslabs/opsworks-elasticsearch-cookbook.git
