@@ -1,0 +1,74 @@
+[submodule "yum"]
+	path = yum
+	url = git@github.com:chef-cookbooks/yum.git
+[submodule "aws"]
+	path = aws
+	url = git@github.com:chef-cookbooks/aws.git
+[submodule "build-essential"]
+	path = build-essential
+	url = git@github.com:chef-cookbooks/build-essential.git
+[submodule "chef-sugar"]
+	path = chef-sugar
+	url = git@github.com:sethvargo/chef-sugar.git
+[submodule "chef-handler"]
+	path = chef-handler
+	url = git@github.com:chef-cookbooks/chef_handler.git
+[submodule "elasticsearch"]
+	path = elasticsearch
+	url = git@github.com:elastic/cookbook-elasticsearch.git
+[submodule "erlang"]
+	path = erlang
+	url = git@github.com:chef-cookbooks/erlang.git
+[submodule "git"]
+	path = git
+	url = git@github.com:chef-cookbooks/git.git
+[submodule "java"]
+	path = java
+	url = git@github.com:agileorbit-cookbooks/java.git
+[submodule "nginx"]
+	path = nginx
+	url = git@github.com:miketheman/nginx.git
+[submodule "ohai"]
+	path = ohai
+	url = git@github.com:chef-cookbooks/ohai.git
+[submodule "yumrepo"]
+	path = yumrepo
+	url = https://github.com/bryanwb/cookbook-yumrepo.git
+[submodule "apt"]
+	path = apt
+	url = https://github.com/opscode-cookbooks/apt.git
+
+[submodule "ntp"]
+	path = ntp
+	url = https://github.com/opscode-cookbooks/ntp.git
+[submodule "runit"]
+	path = runit
+	url = https://github.com/opscode-cookbooks/runit.git
+[submodule "ant"]
+	path = ant
+	url = https://github.com/opscode-cookbooks/ant.git
+[submodule "ark"]
+	path = ark
+	url = https://github.com/opscode-cookbooks/ark.git
+[submodule "bluepill"]
+	path = bluepill
+	url = https://github.com/opscode-cookbooks/bluepill.git
+[submodule "dmg"]
+	path = dmg
+	url = https://github.com/opscode-cookbooks/dmg.git
+[submodule "openssl"]
+	path = openssl
+	url = https://github.com/opscode-cookbooks/openssl.git
+[submodule "vim"]
+	path = vim
+	url = https://github.com/opscode-cookbooks/vim.git
+[submodule "rsyslog"]
+	path = rsyslog
+	url = https://github.com/opscode-cookbooks/rsyslog.git
+[submodule "rbenv"]
+	path = rbenv
+	url = https://github.com/ddux/rbenv-cookbook.git
+[submodule "htpasswd"]
+	path = htpasswd
+	url = https://github.com/Youscribe/htpasswd-cookbook.git
+
