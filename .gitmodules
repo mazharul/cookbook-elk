@@ -31,12 +31,7 @@
 [submodule "ohai"]
 	path = ohai
 	url = git@github.com:chef-cookbooks/ohai.git
-[submodule "yumrepo"]
-	path = yumrepo
-	url = https://github.com/bryanwb/cookbook-yumrepo.git
-[submodule "apt"]
-	path = apt
-	url = https://github.com/opscode-cookbooks/apt.git
+
 
 [submodule "ntp"]
 	path = ntp
@@ -44,12 +39,6 @@
 [submodule "runit"]
 	path = runit
 	url = https://github.com/opscode-cookbooks/runit.git
-[submodule "ant"]
-	path = ant
-	url = https://github.com/opscode-cookbooks/ant.git
-[submodule "ark"]
-	path = ark
-	url = https://github.com/opscode-cookbooks/ark.git
 [submodule "bluepill"]
 	path = bluepill
 	url = https://github.com/opscode-cookbooks/bluepill.git
@@ -65,10 +54,6 @@
 [submodule "rsyslog"]
 	path = rsyslog
 	url = https://github.com/opscode-cookbooks/rsyslog.git
-[submodule "rbenv"]
-	path = rbenv
-	url = https://github.com/ddux/rbenv-cookbook.git
-[submodule "htpasswd"]
-	path = htpasswd
+[submodule "htpasswd-cookbook"]
+	path = htpasswd-cookbook
 	url = https://github.com/Youscribe/htpasswd-cookbook.git
-
