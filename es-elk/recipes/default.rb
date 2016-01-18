@@ -7,10 +7,7 @@
 
 # Not creating user explicitely because we will install elasticsearch from package
 # 
-elasticsearch_user 'elasticsearch' do 
-	action :nothing
-end
-
+elasticsearch_user 'elasticsearch'
 # Install es 
 
 elasticsearch_install 'elasticsearch' do
@@ -32,6 +29,8 @@ elasticsearch_configure 'elasticsearch' do
       	'discovery.zen.ping.multicast.enabled' => 'false'
 	})
 end
+
+elasticsearch_service 'elasticsearch'
 
 
 # install plugin
