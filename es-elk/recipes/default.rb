@@ -8,13 +8,13 @@
 # Not creating user explicitely because we will install elasticsearch from package
 # 
 elasticsearch_user 'elasticsearch' do 
-	action: nothing
+	action :nothing
 end
 
 # Install es 
 
 elasticsearch_install 'elasticsearch' do
-	type: package
+	type :package
 end
 
 # Set half the memory of the instance
