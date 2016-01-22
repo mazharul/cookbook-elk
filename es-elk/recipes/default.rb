@@ -21,12 +21,12 @@ elasticsearch_configure 'elasticsearch' do
 	allocated_memory '2G'
 	configuration({
 		'cluster.name' => 'universe',
-      	'node.name' => 'milkyway',
-      	'discovery.type' => 'ec2',
-      	'discovery.ec2.groups' => 'elasticsearch cluster',
-      	'discovery.ec2.availability_zones' => 'ap-southeast-1a',
-      	'cloud.aws.region' => 'ap-southeast',
-      	'discovery.zen.ping.multicast.enabled' => 'false'
+  	'discovery.type' => 'ec2',
+  	'discovery.ec2.groups' => 'es-elasticsearch',
+  	'discovery.ec2.availability_zones' => 'ap-southeast-1a',
+  	'cloud.aws.region' => 'ap-southeast-1',
+    'discovery.ec2.tag.stage' => 'sandbox',
+  	'discovery.zen.ping.multicast.enabled' => 'false'
 	})
 end
 
