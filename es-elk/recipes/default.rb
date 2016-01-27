@@ -29,21 +29,16 @@ elasticsearch_configure 'elasticsearch' do
 	})
 end
 
-elasticsearch_service 'elasticsearch' do
-  service_actions [:enable, :start]
-end
-
+elasticsearch_service 'elasticsearch'
 
 # install plugin
 # 
 
 elasticsearch_plugin 'cloud-aws' do
 	action :install
-  notifies :restart, 'elasticsearch_service[elasticsearch]', :delayed
 end
 
 elasticsearch_plugin 'kopf' do
   url 'lmenezes/elasticsearch-kopf'
   action :install
-  notifies :restart, 'elasticsearch_service[elasticsearch]', :delayed
 end
