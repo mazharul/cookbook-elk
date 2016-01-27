@@ -25,9 +25,6 @@
 [submodule "java"]
 	path = java
 	url = https://github.com/agileorbit-cookbooks/java.git
-[submodule "nginx"]
-	path = nginx
-	url = https://github.com/miketheman/nginx.git
 [submodule "ohai"]
 	path = ohai
 	url = https://github.com/chef-cookbooks/ohai.git
