@@ -25,7 +25,8 @@ elasticsearch_configure 'elasticsearch' do
   	'discovery.ec2.groups' => 'es-cluster',
   	'discovery.ec2.availability_zones' => 'ap-southeast-1a',
   	'cloud.aws.region' => 'ap-southeast-1',
-  	'discovery.zen.ping.multicast.enabled' => 'false'
+  	'discovery.zen.ping.multicast.enabled' => 'false',
+    'network.host' => '0.0.0.0'
 	})
 end
 
