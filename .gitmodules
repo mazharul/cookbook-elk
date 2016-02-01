@@ -74,3 +74,6 @@
 [submodule "python"]
 	path = python
 	url = https://github.com/poise/python
+[submodule "curl"]
+	path = curl
+	url = https://github.com/retr0h/cookbook-curl
