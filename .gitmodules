@@ -62,3 +62,6 @@
 [submodule "ark"]
 	path = ark
 	url = https://github.com/burtlo/ark.git
+[submodule "logstash"]
+	path = logstash
+	url = https://github.com/lusis/chef-logstash
