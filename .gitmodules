@@ -68,3 +68,6 @@
 [submodule "ant"]
 	path = ant
 	url = https://github.com/jtimberman/ant-cookbook
+[submodule "logrotate"]
+	path = logrotate
+	url = https://github.com/stevendanna/logrotate
