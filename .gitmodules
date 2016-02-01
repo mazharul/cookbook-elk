@@ -80,3 +80,6 @@
 [submodule "packagecloud"]
 	path = packagecloud
 	url = https://github.com/computology/packagecloud-cookbook
+[submodule "windows"]
+	path = windows
+	url = https://github.com/chef-cookbooks/windows
