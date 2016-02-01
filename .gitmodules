@@ -71,3 +71,6 @@
 [submodule "logrotate"]
 	path = logrotate
 	url = https://github.com/stevendanna/logrotate
+[submodule "python"]
+	path = python
+	url = https://github.com/poise/python
