@@ -83,3 +83,6 @@
 [submodule "windows"]
 	path = windows
 	url = https://github.com/chef-cookbooks/windows
+[submodule "yum-epel"]
+	path = yum-epel
+	url = https://github.com/chef-cookbooks/yum-epel
