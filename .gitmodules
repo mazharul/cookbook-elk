@@ -86,3 +86,6 @@
 [submodule "yum-epel"]
 	path = yum-epel
 	url = https://github.com/chef-cookbooks/yum-epel
+[submodule "kibana"]
+	path = kibana
+	url = https://github.com/lusis/chef-kibana
