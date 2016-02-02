@@ -10,9 +10,6 @@
 [submodule "chef-sugar"]
 	path = chef-sugar
 	url = https://github.com/sethvargo/chef-sugar.git
-[submodule "chef-handler"]
-	path = chef-handler
-	url = https://github.com/chef-cookbooks/chef_handler.git
 [submodule "elasticsearch"]
 	path = elasticsearch
 	url = https://github.com/elastic/cookbook-elasticsearch.git
@@ -95,3 +92,6 @@
 [submodule "libarchive"]
 	path = libarchive
 	url = https://github.com/reset/libarchive-cookbook
+[submodule "chef_handler"]
+	path = chef_handler
+	url = https://github.com/chef-cookbooks/chef_handler
