@@ -89,3 +89,6 @@
 [submodule "kibana"]
 	path = kibana
 	url = https://github.com/lusis/chef-kibana
+[submodule "apache2"]
+	path = apache2
+	url = https://github.com/svanzoest-cookbooks/apache2
