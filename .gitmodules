@@ -92,3 +92,6 @@
 [submodule "apache2"]
 	path = apache2
 	url = https://github.com/svanzoest-cookbooks/apache2
+[submodule "libarchive"]
+	path = libarchive
+	url = https://github.com/reset/libarchive-cookbook
