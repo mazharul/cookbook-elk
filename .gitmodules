@@ -95,3 +95,6 @@
 [submodule "chef_handler"]
 	path = chef_handler
 	url = https://github.com/chef-cookbooks/chef_handler
+[submodule "kibana_lwrp"]
+	path = kibana_lwrp
+	url = https://github.com/lusis/chef-kibana/
