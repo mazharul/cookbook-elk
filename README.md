@@ -37,4 +37,65 @@ __Note: This is no way a production level security group settings. This is just 
 
 ## IAM roles
 
-IAM roles are very important. Using this roles we give the automation a restriction on which services they can automate and have control over. IAM roles are defined via policies. 
+IAM roles are very important. Using this roles we give the automation a restriction on which services they can automate and have control over. IAM roles are defined via policies. We have created one role named `opsworks-elasticsearch-ec2-role` with below policy:
+
+```
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:DescribeRegions",
+                "ec2:DescribeTags",
+                "ec2:DescribeSecurityGroups",
+                "cloudwatch:PutMetricData"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+```
+
+Policy name: `OpsWorksElasticsearchEC2Discovery`
+
+
+## OpsWorks
+
+
+### Stacks
+
+- Holds layers and all things related to opsworks
+
+### Layers
+
+- Elasticsearch
+- Logstash
+- Kibana
+
+
+- Add all the recipes for each layers
+- Everytime we spin up new instance, the instance will inherit the recipes from layer as well as other settings.
+- Will help with autoScalingGroup
+
+#### Layer reipes configuration
+
+- Chef cookbooks
+- One master wrapper cookbook
+- All the necessary dependencies in one repo 
+
+### Instances
+
+- 3 cluster nodes
+( 2 powerful node and 1 smaller node )
+- 1 logstash node
+- 1 kibana node
+(Kibana node will have an elasticsearch with `node.master: false` and `node.data: false` as settings, which will work as load balancer and we do not have to connect our kibana to the cluster, kibana can always connect to localhost)
+
+
+
+
+
