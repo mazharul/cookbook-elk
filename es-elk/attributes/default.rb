@@ -8,6 +8,5 @@ default['kibana']['git']['branch'] = 'v4.3.1'
 
 # We will install updated version of logstash
 default['logstash']['instance_default']['version']        = '2.2.0'
-default['logstash']['instance_default']['source_url']     = 'https://github.com/elastic/logstash/archive/v2.2.0.tar.gz'
-default['logstash']['instance_default']['checksum']    	  = 'c8cc02b28340c7569dfc5b044d30ea4cd33602873a27097f7232113e144c00fe'
-default['logstash']['instance_default']['install_type']   = 'tarball'
+default['logstash']['instance_default']['source_url']     = 'https://download.elastic.co/logstash/logstash/logstash-2.2.0.tar.gz'
+default['logstash']['instance_default']['checksum']    	  = 'aee2437f45c726ec354f0bf9634b3638428d48bef32beb412f827eb2cc736f78'

@@ -1,0 +1,9 @@
+output {
+	stdout {
+		codec => rubydebug
+	}
+	elasticsearch {
+		hosts => ["172.31.19.36:9200"] # Use the internal IP of your Elasticsearch server for production
+		sniffing => true
+	}
+}
