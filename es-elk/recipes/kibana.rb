@@ -14,7 +14,7 @@ end
 
 package "kibana"
 
-service 'logstash' do
+service 'kibana' do
   action [:enable, :start]
 end
 
