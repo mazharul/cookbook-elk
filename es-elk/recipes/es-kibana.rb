@@ -41,12 +41,6 @@ elasticsearch_plugin 'cloud-aws' do
   notifies :restart, 'elasticsearch_service[elasticsearch]', :delayed
 end
 
-elasticsearch_plugin 'kopf' do
-  url 'lmenezes/elasticsearch-kopf'
-  action :install
-  notifies :restart, 'elasticsearch_service[elasticsearch]', :delayed
-end
-
 elasticsearch_service 'elasticsearch' do
   service_actions [:enable, :start]
 end

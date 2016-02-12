@@ -45,6 +45,12 @@ elasticsearch_plugin 'kopf' do
   notifies :restart, 'elasticsearch_service[elasticsearch]', :delayed
 end
 
+elasticsearch_plugin 'head' do
+  url 'mobz/elasticsearch-head'
+  action :install
+  notifies :restart, 'elasticsearch_service[elasticsearch]', :delayed
+end
+
 
 elasticsearch_service 'elasticsearch' do
   service_actions [:enable, :start]
