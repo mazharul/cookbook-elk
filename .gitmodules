@@ -10,9 +10,6 @@
 [submodule "chef-sugar"]
 	path = chef-sugar
 	url = https://github.com/sethvargo/chef-sugar.git
-[submodule "elasticsearch"]
-	path = elasticsearch
-	url = https://github.com/elastic/cookbook-elasticsearch.git
 [submodule "erlang"]
 	path = erlang
 	url = https://github.com/chef-cookbooks/erlang.git

@@ -86,6 +86,7 @@ Policy name: `OpsWorksElasticsearchEC2Discovery`
 - Chef cookbooks
 - One master wrapper cookbook
 - All the necessary dependencies in one repo 
+- Cookbook folder `es-elk` will have more documentation on recipes and dependencies
 
 ### Instances
 
