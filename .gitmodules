@@ -95,3 +95,6 @@
 [submodule "kibana_lwrp"]
 	path = kibana_lwrp
 	url = https://github.com/lusis/chef-kibana/
+[submodule "elasticsearch"]
+	path = elasticsearch
+	url = https://github.com/elastic/cookbook-elasticsearch.git
