@@ -21,7 +21,7 @@ Basic idea is to build a template for cloud formation which can spawn infrastruc
 
  ** (Avoid changing code in submodules) **
 
- ## Security groups
+## Security groups
 
  Once the cloud formation template is done, it should automatically create the necessary security group and their policies in aws. For now, we have create these manually in aws. 
 
