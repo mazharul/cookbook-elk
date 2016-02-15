@@ -1,0 +1,573 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+    "CookbookRepo": {
+      "Description": "GitURL",
+      "Type": "String",
+      "Default": "git://github.com/mazjs/cookbook-elk.git"
+    }
+  },
+  "Resources": {
+    "vpcda36afbf": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "172.31.0.0/16",
+        "InstanceTenancy": "default",
+        "EnableDnsSupport": "true",
+        "EnableDnsHostnames": "true"
+      }
+    },
+    "subnet3d97d14a": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "172.31.16.0/20",
+        "AvailabilityZone": "ap-southeast-1a",
+        "VpcId": {
+          "Ref": "vpcda36afbf"
+        }
+      }
+    },
+    "subnet9b94c1fe": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "172.31.0.0/20",
+        "AvailabilityZone": "ap-southeast-1b",
+        "VpcId": {
+          "Ref": "vpcda36afbf"
+        }
+      }
+    },
+    "igwb07ed3d5": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+      }
+    },
+    "dopt1b70ad7e": {
+      "Type": "AWS::EC2::DHCPOptions",
+      "Properties": {
+        "DomainName": "ap-southeast-1.compute.internal",
+        "DomainNameServers": [
+          "AmazonProvidedDNS"
+        ]
+      }
+    },
+    "acl8a1f56ef": {
+      "Type": "AWS::EC2::NetworkAcl",
+      "Properties": {
+        "VpcId": "vpc-06542163"
+      }
+    },
+    "acl667e0e03": {
+      "Type": "AWS::EC2::NetworkAcl",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpcda36afbf"
+        }
+      }
+    },
+    "rtb0f710f6a": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpcda36afbf"
+        }
+      }
+    },
+    "rtba55d0ac0": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": "vpc-06542163"
+      }
+    },
+    "eip52762282": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Domain": "vpc"
+      }
+    },
+    "eip5276162247": {
+      "Type": "AWS::EC2::EIP",
+      "DependsOn": [
+        "gw1"
+      ],
+      "Properties": {
+        "Domain": "vpc"
+      }
+    },
+    "eip527622821": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Domain": "vpc"
+      }
+    },
+    "eip5276239217": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Domain": "vpc"
+      }
+    },
+    "eip527424949": {
+      "Type": "AWS::EC2::EIP",
+      "DependsOn": [
+        "gw1"
+      ],
+      "Properties": {
+        "Domain": "vpc"
+      }
+    },
+    "Elk": {
+      "Type": "AWS::OpsWorks::Stack",
+      "Properties": {
+        "CustomJson": {
+          "java": {
+            "install_flavor": "oracle",
+            "jdk_version": "7",
+            "oracle": {
+              "accept_oracle_download_terms": true
+            }
+          }
+        },
+        "DefaultAvailabilityZone": "ap-southeast-1a",
+        "DefaultInstanceProfileArn": "arn:aws:iam::496415219179:instance-profile/opsworks-elasticsearch-ec2-role",
+        "DefaultOs": "Amazon Linux 2015.09",
+        "DefaultSubnetId": {
+          "Ref": "subnet3d97d14a"
+        },
+        "Name": "Elk",
+        "HostnameTheme": "Planets_and_Moons",
+        "ServiceRoleArn": "arn:aws:iam::496415219179:role/aws-opsworks-service-role",
+        "UseCustomCookbooks": "true",
+        "CustomCookbooksSource": {
+          "Type": "git",
+          "Url": {
+                "Ref": "CookbookRepo"
+            }
+        },
+        "VpcId": {
+          "Ref": "vpcda36afbf"
+        },
+        "Attributes": {
+          "Color": "rgb(57, 131, 94)"
+        },
+        "ConfigurationManager": {
+          "Name": "Chef",
+          "Version": "12"
+        }
+      }
+    },
+    "layerElasticsearchl7": {
+      "Type": "AWS::OpsWorks::Layer",
+      "Properties": {
+        "AutoAssignElasticIps": "true",
+        "AutoAssignPublicIps": "true",
+        "CustomInstanceProfileArn": "arn:aws:iam::496415219179:instance-profile/opsworks-elasticsearch-ec2-role",
+        "EnableAutoHealing": "true",
+        "Name": "Elasticsearchl",
+        "Shortname": "esl",
+        "Type": "custom",
+        "StackId": {
+          "Ref": "Elk"
+        },
+        "CustomSecurityGroupIds": [
+          {
+            "Ref": "sgescluster"
+          }
+        ],
+        "CustomRecipes": {
+          "Setup": [
+            "java::default",
+            "es-elk::default",
+            "nginx::default"
+          ]
+        }
+      }
+    },
+    "layerlogstash8": {
+      "Type": "AWS::OpsWorks::Layer",
+      "Properties": {
+        "AutoAssignElasticIps": "true",
+        "AutoAssignPublicIps": "true",
+        "EnableAutoHealing": "true",
+        "Name": "logstash",
+        "Shortname": "lgs",
+        "Type": "custom",
+        "StackId": {
+          "Ref": "Elk"
+        },
+        "CustomSecurityGroupIds": [
+          {
+            "Ref": "sgescluster"
+          }
+        ],
+        "CustomRecipes": {
+          "Setup": [
+            "es-elk::logstash"
+          ]
+        }
+      }
+    },
+    "layerkibana9": {
+      "Type": "AWS::OpsWorks::Layer",
+      "Properties": {
+        "AutoAssignElasticIps": "false",
+        "AutoAssignPublicIps": "true",
+        "EnableAutoHealing": "true",
+        "Name": "kibana",
+        "Shortname": "kb",
+        "Type": "custom",
+        "StackId": {
+          "Ref": "Elk"
+        },
+        "CustomSecurityGroupIds": [
+          {
+            "Ref": "sgescluster"
+          }
+        ],
+        "CustomRecipes": {
+          "Setup": [
+            "es-elk::es-kibana",
+            "es-elk::nginx-kibana",
+            "es-elk::kibana"
+          ]
+        }
+      }
+    },
+    "4395fc0f3f074924bed0d4c39dc75189": {
+      "Type": "AWS::OpsWorks::Instance",
+      "Properties": {
+        "AmiId": "ami-c9b572aa",
+        "Architecture": "x86_64",
+        "AvailabilityZone": "ap-southeast-1a",
+        "InstallUpdatesOnBoot": "true",
+        "InstanceType": "t2.medium",
+        "Os": "Amazon Linux 2015.09",
+        "RootDeviceType": "ebs",
+        "SshKeyName": "elk-maz",
+        "StackId": {
+          "Ref": "Elk"
+        },
+        "SubnetId": {
+          "Ref": "subnet3d97d14a"
+        },
+        "LayerIds": [
+          {
+            "Ref": "layerElasticsearchl7"
+          }
+        ]
+      }
+    },
+    "034977eed77244c6bd9f1aea36aedbf0": {
+      "Type": "AWS::OpsWorks::Instance",
+      "Properties": {
+        "AmiId": "ami-c9b572aa",
+        "Architecture": "x86_64",
+        "AvailabilityZone": "ap-southeast-1a",
+        "InstallUpdatesOnBoot": "true",
+        "InstanceType": "t2.medium",
+        "Os": "Amazon Linux 2015.09",
+        "RootDeviceType": "ebs",
+        "SshKeyName": "elk-maz",
+        "StackId": {
+          "Ref": "Elk"
+        },
+        "SubnetId": {
+          "Ref": "subnet3d97d14a"
+        },
+        "LayerIds": [
+          {
+            "Ref": "layerElasticsearchl7"
+          }
+        ]
+      }
+    },
+    "e8c7c56050294a0f9008b945b3a39aa6": {
+      "Type": "AWS::OpsWorks::Instance",
+      "Properties": {
+        "AmiId": "ami-c9b572aa",
+        "Architecture": "x86_64",
+        "AvailabilityZone": "ap-southeast-1a",
+        "InstallUpdatesOnBoot": "true",
+        "InstanceType": "t2.medium",
+        "Os": "Amazon Linux 2015.09",
+        "RootDeviceType": "ebs",
+        "SshKeyName": "elk-maz",
+        "StackId": {
+          "Ref": "Elk"
+        },
+        "SubnetId": {
+          "Ref": "subnet3d97d14a"
+        },
+        "LayerIds": [
+          {
+            "Ref": "layerElasticsearchl7"
+          }
+        ]
+      }
+    },
+    "af7cadb2a9424cf58385eb76b7153b70": {
+      "Type": "AWS::OpsWorks::Instance",
+      "Properties": {
+        "AmiId": "ami-c9b572aa",
+        "Architecture": "x86_64",
+        "AvailabilityZone": "ap-southeast-1a",
+        "InstallUpdatesOnBoot": "true",
+        "InstanceType": "t2.medium",
+        "Os": "Amazon Linux 2015.09",
+        "RootDeviceType": "ebs",
+        "SshKeyName": "elk-maz",
+        "StackId": {
+          "Ref": "Elk"
+        },
+        "SubnetId": {
+          "Ref": "subnet3d97d14a"
+        },
+        "LayerIds": [
+          {
+            "Ref": "layerkibana9"
+          }
+        ]
+      }
+    },
+    "29f27e95da374649b3c642a66efe0eeb": {
+      "Type": "AWS::OpsWorks::Instance",
+      "Properties": {
+        "AmiId": "ami-c9b572aa",
+        "Architecture": "x86_64",
+        "AvailabilityZone": "ap-southeast-1a",
+        "InstallUpdatesOnBoot": "true",
+        "InstanceType": "t2.medium",
+        "Os": "Amazon Linux 2015.09",
+        "RootDeviceType": "ebs",
+        "SshKeyName": "elk-maz",
+        "StackId": {
+          "Ref": "Elk"
+        },
+        "SubnetId": {
+          "Ref": "subnet3d97d14a"
+        },
+        "LayerIds": [
+          {
+            "Ref": "layerlogstash8"
+          }
+        ]
+      }
+    },
+    "sgescluster": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Elasticsearch cluster",
+        "VpcId": {
+          "Ref": "vpcda36afbf"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "es-cluster"
+          }
+        ]
+      }
+    },
+    "dbsgdefault": {
+      "Type": "AWS::RDS::DBSecurityGroup",
+      "Properties": {
+        "GroupDescription": "default"
+      }
+    },
+    "acl1": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Egress": "true",
+        "Protocol": "-1",
+        "RuleAction": "allow",
+        "RuleNumber": "100",
+        "NetworkAclId": {
+          "Ref": "acl8a1f56ef"
+        }
+      }
+    },
+    "acl2": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Protocol": "-1",
+        "RuleAction": "allow",
+        "RuleNumber": "100",
+        "NetworkAclId": {
+          "Ref": "acl8a1f56ef"
+        }
+      }
+    },
+    "acl3": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Egress": "true",
+        "Protocol": "-1",
+        "RuleAction": "allow",
+        "RuleNumber": "100",
+        "NetworkAclId": {
+          "Ref": "acl667e0e03"
+        }
+      }
+    },
+    "acl4": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Protocol": "-1",
+        "RuleAction": "allow",
+        "RuleNumber": "100",
+        "NetworkAclId": {
+          "Ref": "acl667e0e03"
+        }
+      }
+    },
+    "subnetacl1": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "acl667e0e03"
+        },
+        "SubnetId": {
+          "Ref": "subnet9b94c1fe"
+        }
+      }
+    },
+    "subnetacl2": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "acl667e0e03"
+        },
+        "SubnetId": {
+          "Ref": "subnet3d97d14a"
+        }
+      }
+    },
+    "gw1": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpcda36afbf"
+        },
+        "InternetGatewayId": {
+          "Ref": "igwb07ed3d5"
+        }
+      }
+    },
+    "route1": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "RouteTableId": {
+          "Ref": "rtb0f710f6a"
+        },
+        "GatewayId": {
+          "Ref": "igwb07ed3d5"
+        }
+      },
+      "DependsOn": "gw1"
+    },
+    "dchpassoc1": {
+      "Type": "AWS::EC2::VPCDHCPOptionsAssociation",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpcda36afbf"
+        },
+        "DhcpOptionsId": {
+          "Ref": "dopt1b70ad7e"
+        }
+      }
+    },
+    "ingress1": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgescluster"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "80",
+        "ToPort": "80",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "ingress2": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgescluster"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "8080",
+        "ToPort": "8080",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "ingress3": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgescluster"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "22",
+        "ToPort": "22",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "ingress4": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgescluster"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "5601",
+        "ToPort": "5601",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "ingress5": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgescluster"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "9300",
+        "ToPort": "9400",
+        "SourceSecurityGroupId": {
+          "Ref": "sgescluster"
+        },
+        "SourceSecurityGroupOwnerId": "496415219179"
+      }
+    },
+    "ingress6": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgescluster"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "9200",
+        "ToPort": "9300",
+        "SourceSecurityGroupId": {
+          "Ref": "sgescluster"
+        },
+        "SourceSecurityGroupOwnerId": "496415219179"
+      }
+    },
+    "egress1": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgescluster"
+        },
+        "IpProtocol": "-1",
+        "CidrIp": "0.0.0.0/0"
+      }
+    }
+  },
+  "Description": "ELK - cloud stack"
+}

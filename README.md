@@ -8,16 +8,18 @@ Basic idea is to build a template for cloud formation which can spawn infrastruc
 
 ## Softwares/ Tools
 
- - Elasticsearch >= 2.1.1
+ - Elasticsearch >= 2.2.0
  - Logstash 	 >= 2.0
  - Aws Cloudformation
  - Aws Cloudformer
  - Chef v12+
  - Aws Opsworks
- - Kibana v4.0+
+ - Kibana v4.4
  - Git
  - Chef Cookbooks of this repositories (ant, apt, ark, aws, bluepill, build-eesential, chef-handler, chef-sugar, curl, dmg, elasticsearch, erlang, python, rsyslog, packagecloud, runit, yum , yum-epel, logrotate, nginx, ntp, ohai, openssl, git, java) 
  (We have tried to avoid any overrite on official cookbooks ; we just wrote wrapper cookbooks when absolutely necessary: es-elk)
+
+ ** (Avoid changing code in submodules) **
 
  ## Security groups
 
@@ -76,10 +78,11 @@ Policy name: `OpsWorksElasticsearchEC2Discovery`
 - Logstash
 - Kibana
 
-
+-------------
 - Add all the recipes for each layers
 - Everytime we spin up new instance, the instance will inherit the recipes from layer as well as other settings.
 - Will help with autoScalingGroup
+
 
 #### Layer reipes configuration
 
@@ -87,6 +90,30 @@ Policy name: `OpsWorksElasticsearchEC2Discovery`
 - One master wrapper cookbook
 - All the necessary dependencies in one repo 
 - Cookbook folder `es-elk` will have more documentation on recipes and dependencies
+- For our ELK implementation we can run below recipes for each of the layers.
+
+###### Elasticsearch
+
+```
+"java::default",
+"es-elk::default",
+"nginx::default"
+```
+
+###### Logstash
+
+```
+"es-elk::logstash"
+
+```
+
+###### Kibana
+
+```
+"es-elk::es-kibana",
+"es-elk::nginx-kibana",
+"es-elk::kibana"
+```
 
 ### Instances
 
